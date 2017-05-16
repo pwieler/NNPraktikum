@@ -19,8 +19,7 @@ class Activation:
 
     @staticmethod
     def sigmoid(netOutput):
-        # Here you have to code the sigmoid function
-        pass
+        return 1 / (1 + math.e**(-1.0 * netOutput))
 
     @staticmethod
     def sigmoidPrime(netOutput):

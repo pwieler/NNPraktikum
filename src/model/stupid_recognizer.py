@@ -30,6 +30,7 @@ class StupidRecognizer(Classifier):
 
     def classify(self, testInstance):
         # byChance is the probability of being correctly recognized
+        # return 10 < 1
         return random() < self.byChance
 
     def evaluate(self):
