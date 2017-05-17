@@ -6,6 +6,7 @@ import logging
 import numpy as np
 
 from util.activation_functions import Activation
+from util.loss_functions import AbsoluteError
 from model.classifier import Classifier
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
