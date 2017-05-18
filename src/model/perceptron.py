@@ -47,7 +47,8 @@ class Perceptron(Classifier):
 
         # Initialize the weight vector with small random values
         # around 0 and0.1
-        self.weight = np.random.rand(self.trainingSet.input.shape[1])/100
+        # self.weight = np.random.rand(self.trainingSet.input.shape[1])/100 # no bias
+        self.weight = np.insert(np.random.rand(self.trainingSet.input.shape[1])/100,0,1) # bias
 
     def train(self, verbose=True):
         """Train the perceptron with the perceptron learning algorithm.
@@ -57,7 +58,7 @@ class Perceptron(Classifier):
         verbose : boolean
             Print logging messages with validation accuracy if verbose is True.
         """
-        
+
         for i in range(1, self.epochs + 1):
             print "Epoch " + str(i)
             for inp, t in zip(self.trainingSet.input, self.trainingSet.label):
@@ -100,10 +101,12 @@ class Perceptron(Classifier):
         return list(map(self.classify, test))
 
     def updateWeights(self, input, error):
-        # Write your code to update the weights of the perceptron here
-        self.weight += self.learningRate * error * input
 
+        # Write your code to update the weights of the perceptron here
+        # self.weight += self.learningRate * error * input # no bias
+        self.weight += self.learningRate * error * np.insert(input,0,1) # bias
          
     def fire(self, input):
         """Fire the output of the perceptron corresponding to the input """
-        return Activation.sign(np.dot(np.array(input), self.weight))
+        # return Activation.sign(np.dot(np.array(input), self.weight)) # no bias
+        return Activation.sign(np.dot(np.array(np.insert(input,0,1)), self.weight)) # bias
