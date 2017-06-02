@@ -4,6 +4,7 @@
 from data.mnist_seven import MNISTSeven
 from model.stupid_recognizer import StupidRecognizer
 from model.perceptron import Perceptron
+from model.logistic_regression import LogisticRegression
 from report.evaluator import Evaluator
 
 
@@ -16,8 +17,8 @@ def main():
                                         data.validationSet,
                                         data.testSet,
                                         learningRate=0.005,
-                                        epochs=20)
-    
+                                        epochs=30)
+
     # Train the classifiers
     print("=========================")
     print("Training..")
@@ -30,11 +31,12 @@ def main():
     myPerceptronClassifier.train()
     print("Done..")
 
+    
     # Do the recognizer
     # Explicitly specify the test set to be evaluated
     stupidPred = myStupidClassifier.evaluate()
     perceptronPred = myPerceptronClassifier.evaluate()
-    
+
     # Report the result
     print("=========================")
     evaluator = Evaluator()
@@ -47,6 +49,6 @@ def main():
     # evaluator.printComparison(data.testSet, perceptronPred)
     evaluator.printAccuracy(data.testSet, perceptronPred)
     
-
+    
 if __name__ == '__main__':
     main()

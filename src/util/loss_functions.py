@@ -59,12 +59,8 @@ class MeanSquaredError(Error):
         self.errorString = 'mse'
 
     def calculateError(self, target, output):
-        # Here you have to code the MSE
         # MSE = 1/n*sum (i=1 to n) of (target_i - output_i)^2)
-        sum = 0
-        for i in range(0,target.size-1):
-            sum += pow(target[i] - output[i],2)
-        return (1/target.size) * sum
+        pass
 
 
 class SumSquaredError(Error):
@@ -76,12 +72,8 @@ class SumSquaredError(Error):
         self.errorString = 'sse'
 
     def calculateError(self, target, output):
-        # Here you have to code the SSE
         # SSE = 1/2*sum (i=1 to n) of (target_i - output_i)^2)
-        sum = 0
-        for i in range(0,target.size-1):
-            sum += pow(target[i] - output[i],2)
-        return 0.5 * sum
+        pass
 
 
 class BinaryCrossEntropyError(Error):
