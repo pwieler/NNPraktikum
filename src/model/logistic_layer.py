@@ -10,12 +10,20 @@ from model.layer import Layer
 class LogisticLayer(Layer):
     """
     A layer of perceptrons acting as the output layer
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
     Parameters
     ----------
     nIn: int: number of units from the previous layer (or input data)
     nOut: int: number of units of the current layer (or output)
     activation: string: activation function of every units in the layer
     isClassifierLayer: bool:  to do classification or regression
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
     Attributes
     ----------
     nIn : positive int:
@@ -71,10 +79,18 @@ class LogisticLayer(Layer):
     def forward(self, input):
         """
         Compute forward step over the input using its weights
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
         Parameters
         ----------
         input : ndarray
             a numpy array (1,nIn + 1) containing the input of the layer
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
         Returns
         -------
         ndarray :
@@ -85,12 +101,20 @@ class LogisticLayer(Layer):
     def computeDerivative(self, nextDerivatives, nextWeights):
         """
         Compute the derivatives (back)
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
         Parameters
         ----------
         nextDerivatives: ndarray
             a numpy array containing the derivatives from next layer
         nextWeights : ndarray
             a numpy array containing the weights from next layer
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Ex1
         Returns
         -------
         ndarray :

@@ -35,8 +35,7 @@ class Perceptron(Classifier):
     testSet : list
     weight : list
     """
-    def __init__(self, train, valid, test, 
-                                    learningRate=0.01, epochs=50):
+    def __init__(self, train, valid, test, learningRate=0.01, epochs=50):
 
         self.learningRate = learningRate
         self.epochs = epochs
@@ -59,11 +58,40 @@ class Perceptron(Classifier):
             Print logging messages with validation accuracy if verbose is True.
         """
 
+<<<<<<< HEAD
         for i in range(1, self.epochs + 1):
             print "Epoch " + str(i)
             for inp, t in zip(self.trainingSet.input, self.trainingSet.label):
                 out = self.classify(inp)
                 self.updateWeights(inp, t-out)
+=======
+        # Try to use the abstract way of the framework
+        from util.loss_functions import DifferentError
+        loss = DifferentError()
+
+        learned = False
+        iteration = 0
+
+        # Train for some epochs if the error is not 0
+        while not learned:
+            totalError = 0
+            for input, label in zip(self.trainingSet.input,
+                                    self.trainingSet.label):
+                output = self.fire(input)
+                if output != label:
+                    error = loss.calculateError(label, output)
+                    self.updateWeights(input, error)
+                    totalError += error
+
+            iteration += 1
+            
+            if verbose:
+                logging.info("Epoch: %i; Error: %i", iteration, -totalError)
+            
+            if totalError == 0 or iteration >= self.epochs:
+                # stop criteria is reached
+                learned = True
+>>>>>>> origin/Ex1
 
     def classify(self, testInstance):
         """Classify a single instance.
@@ -77,9 +105,13 @@ class Perceptron(Classifier):
         bool :
             True if the testInstance is recognized as a 7, False otherwise.
         """
+<<<<<<< HEAD
         # Write your code to do the classification on an input image
 
         return int(self.fire(testInstance))
+=======
+        return self.fire(testInstance)
+>>>>>>> origin/Ex1
 
     def evaluate(self, test=None):
         """Evaluate a whole dataset.
@@ -101,11 +133,16 @@ class Perceptron(Classifier):
         return list(map(self.classify, test))
 
     def updateWeights(self, input, error):
+<<<<<<< HEAD
 
         # Write your code to update the weights of the perceptron here
         # self.weight += self.learningRate * error * input # no bias
         self.weight += self.learningRate * error * np.insert(input,0,1) # bias
          
+=======
+        self.weight += self.learningRate*error*input
+
+>>>>>>> origin/Ex1
     def fire(self, input):
         """Fire the output of the perceptron corresponding to the input """
         # return Activation.sign(np.dot(np.array(input), self.weight)) # no bias
