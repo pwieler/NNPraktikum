@@ -63,20 +63,18 @@ class LogisticRegression(Classifier):
         # Train for some epochs if the error is not 0
         while not learned:
             totalError = 0
-        grad = 0
-            for input, label in zip(self.trainingSet.input,
-                                    self.trainingSet.label):
+            grad = 0
+            for input, label in zip(self.trainingSet.input, self.trainingSet.label):
                 output = self.fire(input)
         
-        error = loss.calculateError(label, output)
-        grad += error * input
+                error = loss.calculateError(label, output)
+                grad += error * input
 
         
-        totalError += error
+                totalError += error
 
-        self.updateWeights(grad)
+            self.updateWeights(grad)
 
-        
             iteration += 1
             
             if verbose:
@@ -85,7 +83,7 @@ class LogisticRegression(Classifier):
             if int(totalError) == 0 or iteration >= self.epochs:
                 # stop criteria is reached
                 learned = True
-        return
+                return
             
     def classify(self, testInstance):
         """Classify a single instance.
@@ -98,7 +96,7 @@ class LogisticRegression(Classifier):
             True if the testInstance is recognized as a 7, False otherwise.
         """
 
-    return Activation.sign(self.fire(testInstance), 0.5)
+        return Activation.sign(self.fire(testInstance), 0.5)
 
     #return int(self.fire(testInstance)) 
 
