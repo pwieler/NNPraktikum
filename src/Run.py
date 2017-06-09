@@ -19,6 +19,12 @@ def main():
                                         learningRate=0.005,
                                         epochs=30)
 
+    myLogisticRegression = LogisticRegression(data.trainingSet,
+                                              data.validationSet,
+                                              data.testSet,
+                                              learningRate=0.0035,
+                                              epochs=90)
+
     # Train the classifiers
     print("=========================")
     print("Training..")
@@ -31,11 +37,15 @@ def main():
     myPerceptronClassifier.train()
     print("Done..")
 
-    
+    print("\nLogistic Regression has been training..")
+    myLogisticRegression.train()
+    print("Done..")
+
     # Do the recognizer
     # Explicitly specify the test set to be evaluated
     stupidPred = myStupidClassifier.evaluate()
     perceptronPred = myPerceptronClassifier.evaluate()
+    logRegressionPred = myLogisticRegression.evaluate()
 
     # Report the result
     print("=========================")
@@ -48,6 +58,10 @@ def main():
     print("\nResult of the Perceptron recognizer:")
     # evaluator.printComparison(data.testSet, perceptronPred)
     evaluator.printAccuracy(data.testSet, perceptronPred)
+
+    print("\nResult of the Logistic Regression recognizer:")
+    # evaluator.printComparison(data.testSet, perceptronPred)
+    evaluator.printAccuracy(data.testSet, logRegressionPred)
     
     
 if __name__ == '__main__':
