@@ -7,6 +7,8 @@ import numpy as np
 
 from util.activation_functions import Activation
 from model.classifier import Classifier
+from util.loss_functions import DifferentError
+from util.loss_functions import BinaryCrossEntropyError
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
                     level=logging.DEBUG,
@@ -53,37 +55,19 @@ class LogisticRegression(Classifier):
             Print logging messages with validation accuracy if verbose is True.
         """
 
-        # Try to use the abstract way of the framework
-        from util.loss_functions import DifferentError
         loss = DifferentError()
-
-        learned = False
-        iteration = 0 
-
-        # Train for some epochs if the error is not 0
-        while not learned:
+        for i in range(1,self.epochs+1):
             totalError = 0
             grad = 0
             for input, label in zip(self.trainingSet.input, self.trainingSet.label):
-                output = self.fire(input)
-        
+                output = self.fire(input) # use sigm representation 
                 error = loss.calculateError(label, output)
                 grad += error * input
-
-        
-                totalError += error
-
+                totalError += abs(error)
             self.updateWeights(grad)
-
-            iteration += 1
             
             if verbose:
-                logging.info("Epoch: %i; Error: %i", iteration, -totalError)
-
-            if int(totalError) == 0 or iteration >= self.epochs:
-                # stop criteria is reached
-                learned = True
-                return
+                logging.info("Epoch: %i; Error: %i", i, totalError)
             
     def classify(self, testInstance):
         """Classify a single instance.
@@ -96,7 +80,7 @@ class LogisticRegression(Classifier):
             True if the testInstance is recognized as a 7, False otherwise.
         """
 
-        return Activation.sign(self.fire(testInstance), 0.5)
+        return Activation.sign(self.fire(testInstance), 0.5) # classify using threshold - only for evaluating
 
     #return int(self.fire(testInstance)) 
 
@@ -118,7 +102,7 @@ class LogisticRegression(Classifier):
         return list(map(self.classify, test))
 
     def updateWeights(self, grad):
-        self.weight += self.learningRate*grad
+        self.weight += self.learningRate * grad
 
     def fire(self, input):
         # Look at how we change the activation function here!!!!

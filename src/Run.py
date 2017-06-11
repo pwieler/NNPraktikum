@@ -21,8 +21,8 @@ def main():
     myLogisticRegressionClassifier = LogisticRegression(data.trainingSet,
                                         data.validationSet,
                                         data.testSet,
-                                        learningRate=0.0002,
-                                        epochs=100)
+                                        learningRate=0.0009,
+                                        epochs=200)
 
     # Train the classifiers
     print("=========================")
@@ -39,8 +39,7 @@ def main():
     print("\Logistic Neuron has been training..")
     myLogisticRegressionClassifier.train()
     print("Done..")
-
-    
+ 
     # Do the recognizer
     # Explicitly specify the test set to be evaluated
     stupidPred = myStupidClassifier.evaluate()
@@ -62,7 +61,6 @@ def main():
     print("\nResult of the Logistic Neuron recognizer:")
     # evaluator.printComparison(data.testSet, logisticRegressionPred)
     evaluator.printAccuracy(data.testSet, logisticRegressionPred)
-    
     
 if __name__ == '__main__':
     main()
