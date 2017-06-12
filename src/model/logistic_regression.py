@@ -44,8 +44,11 @@ class LogisticRegression(Classifier):
         self.validationSet = valid
         self.testSet = test
 
+        self.errorHistory = 0
+
         # Initialize the weight vector with small values
         self.weight = 0.01*np.random.randn(self.trainingSet.input.shape[1])
+
 
     def train(self, verbose=True):
         """Train the Logistic Regression.
@@ -55,19 +58,23 @@ class LogisticRegression(Classifier):
             Print logging messages with validation accuracy if verbose is True.
         """
 
-        loss = DifferentError()
-        for i in range(1,self.epochs+1):
-            totalError = 0
-            grad = 0
-            for input, label in zip(self.trainingSet.input, self.trainingSet.label):
-                output = self.fire(input) # use sigm representation 
-                error = loss.calculateError(label, output)
-                grad += error * input
-                totalError += abs(error)
-            self.updateWeights(grad)
-            
+        loss = BinaryCrossEntropyError()
+
+        for x in range(self.epochs):
+            outputvec = self.fire(self.trainingSet.input)
+            targetvec = self.trainingSet.label
+
+            weightsGrad = np.dot(DifferentError().calculateError(targetvec,outputvec), self.trainingSet.input)
+
             if verbose:
-                logging.info("Epoch: %i; Error: %i", i, totalError)
+                totalError = loss.calculateError(targetvec, outputvec)
+                self.errorHistory = np.append(self.errorHistory, totalError)
+                logging.info("Epoch: %i; Error: %f", x, totalError)
+
+            self.updateWeights(weightsGrad)
+
+        self.errorHistory = np.delete(self.errorHistory, 0)
+
             
     def classify(self, testInstance):
         """Classify a single instance.
